@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.3.1"
 	id("io.spring.dependency-management") version "1.1.5"
+	id("org.liquibase.gradle") version "2.2.2"
 }
 
 group = "shopify.sevdesk"
@@ -26,6 +27,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.liquibase:liquibase-core")
+	liquibaseRuntime("org.liquibase:liquibase-core")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -36,4 +38,24 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+liquibase {
+	activities.register("main") {
+		val dbUrl = "jdbc:mysql://db:3306/mydatabase"
+		val dbUser = "user"
+		val dbPassword = "password"
+
+		this.arguments =
+			mapOf(
+				"logLevel" to "debug",
+				"changeLogFile" to "/db/changelog/db.changelog-master.yaml",
+				"url" to dbUrl,
+				"username" to dbUser,
+				"password" to dbPassword,
+				"driver" to "com.mysql.cj.jdbc.Driver",
+				"classpath" to "$projectDir/src/main/resources",
+			)
+	}
+	runList = "main"
 }
