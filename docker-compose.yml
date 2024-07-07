@@ -2,44 +2,53 @@ version: '3.8'
 
 services:
   springboot-app:
+    restart: always
     build:
-      context: ./shopify-sevdesk-integration-backend
-      dockerfile: /Dockerfile
-    ports:
-      - "8080:8080"
+      dockerfile: ./shopify-sevdesk-integration-backend/Dockerfile
     networks:
       - app-network
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
     depends_on:
-      - db
+      mysqldb:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/mydatabase
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+
+  mysqldb:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      retries: 10
+      interval: 3s
+      timeout: 30s
 
   angular-app:
     build:
-      context: ./sevdesk-shopify-integration
-      dockerfile: ./dockerfile
+      args:
+        progress: plain
+      context: .
+      dockerfile: ./shopify-sevdesk-intgeration-frontend/Dockerfile
     ports:
-      - "4200:80"
-    networks:
-      - app-network
-
-  db:
-    image: mysql:5.7
-    ports:
-      - "3307:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    volumes:
-      - db-data:/var/lib/mysql
+      - "80:80"
     networks:
       - app-network
 
 networks:
   app-network:
-    driver: bridge
+    name: app-network
 
 volumes:
   db-data:
+
+
+

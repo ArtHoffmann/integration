@@ -3,10 +3,10 @@ FROM gradle:8.8.0-jdk22 AS build
 WORKDIR /app
 
 # Kopieren Sie die Gradle-Konfigurationsdateien
-COPY build.gradle.kts settings.gradle.kts ./
+COPY ./shopify-sevdesk-integration-backend/build.gradle.kts ./shopify-sevdesk-integration-backend/settings.gradle.kts ./
 
 # Kopieren Sie die restlichen Projektdateien
-COPY src ./src
+COPY ./shopify-sevdesk-integration-backend/src ./src
 
 # Führen Sie den Gradle-Build aus und überspringen Sie die Tests
 RUN gradle build -x test
@@ -21,11 +21,7 @@ WORKDIR /app
 # Kopieren Sie die erstellte JAR-Datei aus dem Build-Container
 COPY --from=build /app/build/libs/*-SNAPSHOT.jar ./app.jar
 
-# Kopieren Sie das wait-for-it.sh Skript aus dem Build-Container
-COPY wait-for-it.sh ./wait-for-it.sh
-
-# Make the wait-for-it.sh script executable
-RUN chmod +x ./wait-for-it.sh
+EXPOSE 8080
 
 # Setzen Sie den Entry-Point auf das Ausführen der JAR-Datei mit wait-for-it.sh
-ENTRYPOINT ["./wait-for-it.sh", "db:3306", "--", "java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

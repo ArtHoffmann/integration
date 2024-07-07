@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/integration.iml" filepath="$PROJECT_DIR$/.idea/integration.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopify.sevdesk.integration/src/main/main.iml" filepath="$PROJECT_DIR$/shopify.sevdesk.integration/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sevdesk-shopify-integration/sevdesk-shopify-integration.iml" filepath="$PROJECT_DIR$/sevdesk-shopify-integration/sevdesk-shopify-integration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopify-sevdesk-intgeration-frontend/shopify-sevdesk-intgeration-frontend.iml" filepath="$PROJECT_DIR$/shopify-sevdesk-intgeration-frontend/shopify-sevdesk-intgeration-frontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopify.sevdesk.integration/src/test/test.iml" filepath="$PROJECT_DIR$/shopify.sevdesk.integration/src/test/test.iml" />
     </modules>
   </component>
