@@ -22,7 +22,6 @@ ENV NX_DAEMON=false
 # Build the application
 RUN nx run shopify-sevdesk:build
 
-
 # Stage 3: Serve the Angular application with Nginx
 FROM nginx:bullseye as production
 COPY --from=build /app/dist/apps/shopify-sevdesk/browser /usr/share/nginx/html
