@@ -38,6 +38,7 @@ dependencies {
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	compileOnly("org.projectlombok:lombok")
 }
 
 tasks.withType<Test> {

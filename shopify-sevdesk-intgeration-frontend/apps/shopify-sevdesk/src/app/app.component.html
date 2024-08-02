@@ -1,6 +1,10 @@
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
-<ng-container *ngIf="(test | async) as t">
-  <div>
-    {{t}}
-  </div>
+<nav>
+  <a routerLink="/home">Home</a>
+  <a routerLink="/login">Login</a>
+  <button (click)="logout()">Logout</button>
+</nav>
+<router-outlet></router-outlet>
+
+<ng-container *ngIf="test">
+  <span>{{ test.message }}</span>
 </ng-container>

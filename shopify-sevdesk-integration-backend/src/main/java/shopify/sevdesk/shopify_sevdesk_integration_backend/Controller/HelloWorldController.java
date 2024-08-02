@@ -2,31 +2,37 @@ package shopify.sevdesk.shopify_sevdesk_integration_backend.Controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import shopify.sevdesk.shopify_sevdesk_integration_backend.service.HelloWorldService;
+import shopify.sevdesk.shopify_sevdesk_integration_backend.service.model.HelloWorldModel;
 
-import java.security.Principal;
+import java.util.Optional;
 
 
 @RestController
+@RequestMapping("/customers")
 public class HelloWorldController {
-
     private static Logger logger = LogManager.getLogger(HelloWorldController.class);
+    private final HelloWorldService helloWorldService;
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello() {
-        logger.info("Hello World called");
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .body("{\"message\": \"Hello, World - test\"}");
+    @Autowired
+    public HelloWorldController(HelloWorldService helloWorldService) {
+        this.helloWorldService = helloWorldService;
     }
 
-    @GetMapping("/customers")
-    public String customers(Principal principal) {
-        return "Welcome, " + principal.getName() + "!";
-    }
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HelloWorldModel> customers() throws ChangeSetPersister.NotFoundException {
+        logger.info("HelloWorldService called");
 
+        HelloWorldModel helloWorldModel = Optional.ofNullable(this.helloWorldService.sayHello())
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+
+        return ResponseEntity.ok(helloWorldModel);
+    }
 }
