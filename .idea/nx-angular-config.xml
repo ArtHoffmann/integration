@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="NxAngularConfigService" workspaceLocation="file://$PROJECT_DIR$/shopify-sevdesk-intgeration-frontend/nx.json">
+    <projects>
+      <project name="shopify-sevdesk" file="file://$PROJECT_DIR$/shopify-sevdesk-intgeration-frontend/apps/shopify-sevdesk/project.json" />
+      <project name="shopify-sevdesk-e2e" file="file://$PROJECT_DIR$/shopify-sevdesk-intgeration-frontend/apps/shopify-sevdesk-e2e/project.json" />
+    </projects>
+  </component>
+</project>

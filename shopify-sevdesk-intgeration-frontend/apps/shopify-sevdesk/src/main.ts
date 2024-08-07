@@ -1,13 +1,12 @@
-// src/main.ts
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
-import { APP_INITIALIZER } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {AppComponent} from './app/app.component';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import {APP_INITIALIZER} from '@angular/core';
 import {keycloakConfig} from "./keycloak.config";
-import {ActivatedRoute, provideRouter} from "@angular/router";
-import routes from "./app/app.routes";
-import {Configuration} from "./app/config/Configuration";
+import {provideRouter} from "@angular/router";
+import {Configuration} from "./app/core/config/Configuration";
+import {appRoutes} from "./app/app.routes";
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -21,15 +20,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
 }
 
 export function configurationFactory() {
-  return new Configuration('http://localhost:8081')
+  return new Configuration('http://localhost:8081');
 }
 
 bootstrapApplication(AppComponent, {
   providers: [
     KeycloakAngularModule,
     KeycloakService,
-    provideRouter(routes),
-    provideHttpClient(),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
@@ -38,7 +35,10 @@ bootstrapApplication(AppComponent, {
     },
     {
       provide: Configuration,
-      useFactory: configurationFactory
-    }
+      useFactory: configurationFactory,
+    },
+    // provideHttpClient(withInterceptors([interceptorInterceptor]), withFetch()),
+    provideRouter(appRoutes),
+    provideAnimationsAsync()
   ],
 }).catch((err) => console.error(err));

@@ -1,16 +1,25 @@
-// src/app/app.routes.ts
-import { Routes } from '@angular/router';
-import { authGuard } from './services/auth/auth.guard';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import {AppComponent} from "./app.component";
+import {Routes} from '@angular/router';
+import {authGuard} from './services/auth/auth.guard';
+import {AppDashboardComponent} from "./shared/components/app-dashboard/app-dashboard.component";
+import {AppShopifyTableComponent} from "./shared/components/app-shopify-table/app-shopify-table.component";
+import {AppShellComponent} from "./shared/components/app-shell/app-shell.component";
 
-const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'app', component: AppComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' } // Wildcard route for a 404 page
+export const appRoutes: Routes = [
+  {
+    path: '',
+    component: AppShellComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: AppDashboardComponent,
+        providers: [],
+      },
+      {
+        path: 'shopify',
+        component: AppShopifyTableComponent,
+        providers: [],
+      },
+    ]
+  }
 ];
-
-export default routes;

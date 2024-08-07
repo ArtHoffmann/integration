@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Configuration} from "../../config/Configuration";
+import {Configuration} from "../../core/config/Configuration";
 import {KeycloakService} from "keycloak-angular";
-import {HelloWorldModel} from "../../model/HelloWorldModel";
+import {HelloWorldModel} from "../../core/model/HelloWorldModel";
 
 @Injectable({
   providedIn: 'root'

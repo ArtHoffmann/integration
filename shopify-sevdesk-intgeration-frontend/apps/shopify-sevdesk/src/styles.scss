@@ -1,1 +1,61 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss */
+
+@use '@angular/material' as mat;
+@use './m3-theme' as my-theme;
+
+@include mat.core();
+
+html {
+
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-toolbar.first {
+  background-color: map-get(my-theme.$primary-palette, 95) !important;
+}
+mat-toolbar.second {
+  background-color: map-get(my-theme.$primary-palette, 98) !important;
+}
+
+mat-sidenav-content, {
+  background-color: map-get(my-theme.$primary-palette, 98) !important;
+}
+
+mat-sidenav {
+  background-color: map-get(my-theme.$primary-palette, 95) !important;
+}
+
+mat-sidenav.sidenav {
+  width: 250px !important;
+}
+
+mat-button.primary {
+  background-color: map-get(my-theme.$error-palette, 60);
+  color: white;  // Ensure text is readable
+}
+
+mat-button.error {
+  background-color: map-get(my-theme.$error-palette, 60);
+  color: white;  // Ensure text is readable
+}
+
+button.mat-success {
+  background-color: map-get(my-theme.$secondary-palette, 50);
+  color: white;
+}
+
+button.mat-success:hover {
+  background-color: white;  // Hover state color
+}
+
+mat-button.error:hover {
+  background-color: map-get(my-theme.$error-palette, 70);
+}
+
+.mdc-list {
+  padding: 0 !important;
+}

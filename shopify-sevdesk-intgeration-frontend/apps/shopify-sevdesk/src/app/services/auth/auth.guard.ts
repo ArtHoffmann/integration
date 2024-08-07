@@ -6,10 +6,12 @@ import {Router} from '@angular/router';
 
 export const authGuard: CanActivateFn = async (route, state) => {
   const keycloak: KeycloakService = inject(KeycloakService);
-  const router: Router = inject(Router);
+  const token = decodeTokenPayload(keycloak.getKeycloakInstance().token)
+  localStorage.setItem('USER_ROLE', token.resource_access['login-app']?.roles[0])
 
   const isAuthenticated = await keycloak.isLoggedIn();
   if (!isAuthenticated) {
+
     await keycloak.login({
       redirectUri: window.location.origin + state.url,
     });
