@@ -5,29 +5,68 @@ databaseChangeLog:
       labels: Shopify Integration
       changes:
         - createTable:
-            tableName: invoice
+            tableName: shopify_orders
             columns:
               - column:
                   name: id
-                  type: int
-                  autoIncrement: true
+                  type: bigint
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: currency
+                  type: varchar(3)
+              - column:
                   name: name
                   type: varchar(50)
-                  constraints:
-                    nullable: false
               - column:
-                  name: paydate
+                  name: email
                   type: varchar(50)
               - column:
-                  name: status
+                  name: product_title
                   type: varchar(50)
               - column:
-                  name: tax
-                  type: varchar(30)
+                  name: created_at
+                  type: varchar(50)
               - column:
-                  name: sum
-                  type: varchar(30)
+                  name: total_price_set
+                  type: decimal(10,2)
+              - column:
+                  name: total_shipping_price_set
+                  type: decimal(10,2)
+              - column:
+                  name: customer_locale
+                  type: varchar(10)
+              - column:
+                  name: financial_status
+                  type: varchar(20)
+              - column:
+                  name: order_number
+                  type: int
+              - column:
+                  name: processed_at
+                  type: varchar(50)
+              - column:
+                  name: billing_address_address1
+                  type: varchar(255)
+              - column:
+                  name: billing_address_city
+                  type: varchar(100)
+              - column:
+                  name: billing_address_zip
+                  type: varchar(20)
+              - column:
+                  name: billing_address_country
+                  type: varchar(100)
+              - column:
+                  name: billing_address_name
+                  type: varchar(255)
+              - column:
+                  name: billing_address_country_code
+                  type: varchar(2)
+              - column:
+                  name: billing_address_first_name
+                  type: varchar(100)
+              - column:
+                  name: billing_address_last_name
+                  type: varchar(100)

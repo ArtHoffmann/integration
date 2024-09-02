@@ -1,4 +1,4 @@
-package shopify.sevdesk.shopify_sevdesk_integration_backend.Exception;
+package shopify.sevdesk.shopify_sevdesk_integration_backend.exception;
 
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;

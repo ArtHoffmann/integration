@@ -32,7 +32,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/hello*")).hasRole("admins")
+                        .requestMatchers(new AntPathRequestMatcher("/shopify*")).hasAnyAuthority("shopify")
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.decoder(jwtDecoder()))

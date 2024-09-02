@@ -1,9 +1,9 @@
 import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
-import {interceptorInterceptor} from './services/interceptor/interceptor.interceptor';
 import {Configuration} from './core/config/Configuration';
 import {appRoutes} from './app.routes';
+import {interceptorInterceptor} from "./services/interceptor/interceptor.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
